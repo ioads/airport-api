@@ -1,0 +1,195 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API de Passagens áereas",
+        "description": "API de compras de passagens aéreas",
+        "contact": {
+            "name": "Iago Oliveira",
+            "email": "ioads@outlook.com"
+        },
+        "license": {
+            "name": "MIT License",
+            "url": "https://opensource.org/licenses/MIT"
+        },
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/flights": {
+            "get": {
+                "tags": [
+                    "Flights"
+                ],
+                "summary": "Get list of flights",
+                "description": "Returns list of flights",
+                "operationId": "getFlightsList",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Flights"
+                ],
+                "summary": "Store flight",
+                "description": "Store a flight",
+                "operationId": "storeFlight",
+                "requestBody": {
+                    "description": "Create Flight",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "origin_id": {
+                                        "type": "string",
+                                        "example": "1"
+                                    },
+                                    "destination_id": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "2"
+                                    },
+                                    "code": {
+                                        "type": "string",
+                                        "example": "1234"
+                                    },
+                                    "departure": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2024-08-25 12:00:00"
+                                    },
+                                    "classes": {
+                                        "type": "array",
+                                        "items": {
+                                            "properties": {
+                                                "class_id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "seats": {
+                                                    "type": "integer",
+                                                    "example": "30"
+                                                },
+                                                "unit_price": {
+                                                    "type": "number",
+                                                    "format": "float",
+                                                    "example": "1500.50"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        },
+        "/api/flights/{flight}": {
+            "put": {
+                "tags": [
+                    "Flights"
+                ],
+                "summary": "Update flight",
+                "description": "Update a flight",
+                "operationId": "updateFlight",
+                "requestBody": {
+                    "description": "Update a Flight",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "origin_id": {
+                                        "type": "string",
+                                        "example": "1"
+                                    },
+                                    "destination_id": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "2"
+                                    },
+                                    "code": {
+                                        "type": "string",
+                                        "example": "1234"
+                                    },
+                                    "departure": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2024-08-25 12:00:00"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Flights"
+                ],
+                "summary": "Cancel flight",
+                "description": "Cancel a flight",
+                "operationId": "cancelFlight",
+                "requestBody": {
+                    "description": "Cancel a Flight",
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        },
+        "/api/flights/passengers/{flight}": {
+            "get": {
+                "tags": [
+                    "Flights"
+                ],
+                "summary": "Get passengers by flight",
+                "description": "Get passengers by flight",
+                "operationId": "passengersFlight",
+                "requestBody": {
+                    "description": "Get passengers by Flight",
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        }
+    }
+}
