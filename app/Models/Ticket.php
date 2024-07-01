@@ -27,4 +27,9 @@ class Ticket extends Model
         'departure',
         'check_baggage'
     ];
+
+    public function flight()
+    {
+        return $this->belongsTo(Flight::class);
+    }
 }

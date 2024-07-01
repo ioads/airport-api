@@ -72,4 +72,25 @@ class TicketRepository implements TicketRepositoryInterface
 
         return $this->model->where('flight_id', '=', $data['flight_id'])->where('buyer_cpf', '=', $data['buyer_cpf'])->get();
     }
+
+    public function voucher(string $cpf, string $flightId)
+    {
+        $tickets = $this->model->where('buyer_cpf', '=', $cpf)->where('flight_id', '=', $flightId)->get();
+
+        $vouchers = [];
+
+        foreach($tickets as $ticket) {
+            $vouchers[] = [
+                'ticket_code' => $ticket->code,
+                'flight_code' => $ticket->flight->code,
+                'origin' => $ticket->origin_iata,
+                'destination' => $ticket->destination_iata,
+                'passenger_name' => $ticket->passenger_name,
+                'passenger_cpf' => $ticket->passenger_cpf,
+                'check_baggage'=> $ticket->check_baggage ? 'Sim' : 'Não'
+            ];
+        }
+
+        return $vouchers;
+    }
 }

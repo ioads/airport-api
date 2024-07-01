@@ -20,4 +20,6 @@ interface TicketRepositoryInterface
     public function delete(Ticket $ticket);
 
     public function buy(BuyTicketRequest $request);
+
+    public function voucher(string $cpf, string $flightId);
 }

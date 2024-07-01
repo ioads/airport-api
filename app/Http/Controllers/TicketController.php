@@ -54,18 +54,17 @@ class TicketController extends Controller
         return response()->json($ticket);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
-
     public function buy(BuyTicketRequest $request)
     {
         $data = $request->validated();
 
         return $this->ticketRepository->buy($data);
+    }
+
+    public function voucher(string $cpf, string $flightId)
+    {
+        $vouchers = $this->ticketRepository->voucher($cpf, $flightId);
+
+        return response()->json($vouchers);
     }
 }
