@@ -3,9 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Ticket;
-use Exception;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Support\Facades\DB;
 
 class TicketRepository implements TicketRepositoryInterface
 {
@@ -50,5 +48,28 @@ class TicketRepository implements TicketRepositoryInterface
     public function delete(Ticket $ticket): int
     {
         return $ticket->delete();
+    }
+
+    public function buy($data)
+    {
+        foreach($data['passengers'] as $passenger) {
+            $ticket = $this->model->where('seat_number', '=', $passenger['seat_number'])
+                        ->where('flight_id', '=', $data['flight_id'])
+                        ->first();
+            
+            $ticket->update([
+                'buyer_name' => $data['buyer_name'],
+                'buyer_cpf' => $data['buyer_cpf'],
+                'buyer_birthdate' => $data['buyer_birthdate'],
+                'buyer_email' => $data['buyer_email'],
+                'check_baggage' => isset($passenger['check_baggage']) ? $passenger['check_baggage'] : false,
+                'passenger_name' => $passenger['passenger_name'],
+                'passenger_cpf' => $passenger['passenger_cpf'],
+                'passenger_birthdate' => $passenger['passenger_birthdate'],
+                'total_price' => isset($passenger['check_baggage']) ? $ticket->total_price + ($ticket->total_price * 0.1) : $ticket->total_price
+            ]);
+        }
+
+        return $this->model->where('flight_id', '=', $data['flight_id'])->where('buyer_cpf', '=', $data['buyer_cpf'])->get();
     }
 }

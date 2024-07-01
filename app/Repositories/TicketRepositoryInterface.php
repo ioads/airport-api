@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Http\Requests\BuyTicketRequest;
 use App\Models\Ticket;
 
 interface TicketRepositoryInterface
@@ -17,4 +18,6 @@ interface TicketRepositoryInterface
     public function updateOrCreate(array $find, array $data);
 
     public function delete(Ticket $ticket);
+
+    public function buy(BuyTicketRequest $request);
 }

@@ -14,12 +14,17 @@ class Ticket extends Model
         'class_id',
         'seat_number',
         'code',
+        'buyer_name',
+        'buyer_cpf',
+        'buyer_birthdate',
+        'buyer_email',
         'passenger_name',
         'passenger_cpf',
         'passenger_birthdate',
         'total_price',
         'origin_iata',
         'destination_iata',
-        'departure'
+        'departure',
+        'check_baggage'
     ];
 }

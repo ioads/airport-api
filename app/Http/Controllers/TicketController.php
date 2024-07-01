@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\BuyTicketRequest;
 use App\Http\Requests\UpdateTicketRequest;
 use App\Models\Ticket;
 use App\Repositories\TicketRepositoryInterface;
@@ -59,5 +60,12 @@ class TicketController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function buy(BuyTicketRequest $request)
+    {
+        $data = $request->validated();
+
+        return $this->ticketRepository->buy($data);
     }
 }
