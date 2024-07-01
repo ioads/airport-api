@@ -26,3 +26,4 @@ Inicie o servidor
 ``php artisan serve``
 
 Consuma a api seguindo a documentação disponível na rota "/api/documentation"
+Será necessário realizar login e utilizar o token gerado para autenticação Bearer Token
