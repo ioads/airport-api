@@ -13,6 +13,6 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 Route::group(['middleware' => 'auth:sanctum'], function () {
-    Route::apiResource('airports', AirportController::class);
-    Route::apiResource('flights', FlightController::class);
+    Route::resource('airports', AirportController::class);
+    Route::resource('flights', FlightController::class)->only('index', 'store', 'update', 'destroy');
 });

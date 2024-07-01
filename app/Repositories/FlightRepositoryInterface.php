@@ -12,7 +12,7 @@ interface FlightRepositoryInterface
 
     public function create(array $data);
 
-    public function update($id, array $data);
+    public function update(Flight $flight, array $data);
 
     public function updateOrCreate(array $find, array $data);
 

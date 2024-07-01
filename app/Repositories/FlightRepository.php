@@ -21,7 +21,7 @@ class FlightRepository implements FlightRepositoryInterface
 
     public function all(): Collection
     {
-        return $this->model->all();
+        return $this->model->with('classes')->get();
     }
 
     public function find($id)
@@ -56,15 +56,16 @@ class FlightRepository implements FlightRepositoryInterface
             return $flight;
         } catch (Exception $e) {
             DB::rollBack();
+            throw new Exception($e->getMessage());
             throw new Exception('Erro ao criar voo');
         }
     }
 
-    public function update($id, array $data)
+    public function update(Flight $flight, array $data)
     {
-        $user = $this->model->find($id);
-        $user->update($data);
-        return $user;
+        // $flight = $this->model->find($id);
+        $flight->update($data);
+        return $flight;
     }
 
     public function updateOrCreate(array $find, array $data)
