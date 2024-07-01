@@ -81,4 +81,13 @@ class TicketController extends Controller
 
         return response()->json($tickets);
     }
+
+    public function cancel(Request $request)
+    {
+        $data = $request->all();
+
+        $this->ticketRepository->cancel($data);
+
+        return response()->json('Compra cancelada com sucesso.');
+    }
 }

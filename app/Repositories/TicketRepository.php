@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Models\ClassFlight;
 use App\Models\Ticket;
 use Carbon\Carbon;
 use DateTime;
@@ -12,10 +13,12 @@ use Illuminate\Database\Eloquent\Collection;
 class TicketRepository implements TicketRepositoryInterface
 {
     protected Ticket $model;
+    protected ClassFlight $classFlight;
 
-    public function __construct(Ticket $flight)
+    public function __construct(Ticket $flight, ClassFlight $classFlight)
     {
         $this->model = $flight;
+        $this->classFlight = $classFlight;
     }
 
     public function all(): Collection
@@ -121,5 +124,27 @@ class TicketRepository implements TicketRepositoryInterface
     public function ticketsByCpf(string $cpf)
     {
         return $this->model->where('buyer_cpf', '=', $cpf)->get();
+    }
+
+    public function cancel($data)
+    {
+        $tickets = $this->model->where('buyer_cpf', '=', $data['buyerCpf'])->get();
+
+        foreach($tickets as $ticket) {
+            $classFlight = $this->classFlight->where('flight_id', '=', $ticket->flight_id)->where('class_id', '=', $ticket->class_id)->first();
+
+            $ticket->update([
+                'passenger_name' => null,
+                'passenger_cpf' => null,
+                'passenger_birthdate' => null,
+                'buyer_name' => null,
+                'buyer_cpf' => null,
+                'buyer_birthdate' => null,
+                'buyer_email' => null,
+                'check_baggage' => false,
+                'baggage_number' => null,
+                'total_price' => $classFlight->unit_price
+            ]);
+        }
     }
 }

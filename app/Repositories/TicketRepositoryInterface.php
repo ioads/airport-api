@@ -26,4 +26,6 @@ interface TicketRepositoryInterface
     public function baggage(string $ticketCode);
 
     public function ticketsByCpf(string $cpf);
+
+    public function cancel(array $data);
 }
