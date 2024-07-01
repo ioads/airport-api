@@ -17,6 +17,9 @@ class Ticket extends Model
         'passenger_name',
         'passenger_cpf',
         'passenger_birthdate',
-        'total_price'
+        'total_price',
+        'origin_iata',
+        'destination_iata',
+        'departure'
     ];
 }

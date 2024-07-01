@@ -19,7 +19,10 @@ class TicketObserver
                 'class_id' => $classFlight->class_id,
                 'code' => $classFlight->flight_id . $classFlight->class_id . $i,
                 'total_price' => $classFlight->unit_price,
-                'seat_number' => $i
+                'seat_number' => $i,
+                'origin_iata' => $classFlight->flight->origin->iata_code,
+                'destination_iata' => $classFlight->flight->destination->iata_code,
+                'departure' => $classFlight->flight->departure,
             ];
         }
         Ticket::insert($tickets);        

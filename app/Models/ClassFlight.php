@@ -20,4 +20,9 @@ class ClassFlight extends Model
         'seats',
         'unit_price'
     ];
+
+    public function flight()
+    {
+        return $this->belongsTo(Flight::class);
+    }
 }

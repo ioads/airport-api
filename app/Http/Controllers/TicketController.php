@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreFlightRequest;
-use App\Http\Requests\StoreTicketRequest;
 use App\Http\Requests\UpdateTicketRequest;
 use App\Models\Ticket;
 use App\Repositories\TicketRepositoryInterface;
@@ -21,9 +19,26 @@ class TicketController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $query = Ticket::query();
+
+        if($request->origin_iata) {
+            $query->where('origin_iata', '=', $request->origin_iata);
+        }
+        if($request->destination_iata) {
+            $query->where('destination_iata', '=', $request->destination_iata);
+        }
+        if($request->departure) {
+            $query->whereDate('departure', '=', $request->departure);
+        }
+        if($request->total_price) {
+            $query->where('total_price', '=', $request->total_price);
+        }
+
+        $query->whereNull('passenger_cpf');
+
+        return response()->json($query->get());
     }
 
     /**

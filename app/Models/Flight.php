@@ -22,4 +22,14 @@ class Flight extends Model
     {
         return $this->hasMany(ClassFlight::class);
     }
+
+    public function origin()
+    {
+        return $this->belongsTo(Airport::class, 'origin_id', 'id');
+    }
+
+    public function destination()
+    {
+        return $this->belongsTo(Airport::class, 'destination_id', 'id');
+    }
 }
