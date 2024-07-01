@@ -41,6 +41,10 @@ class FlightRepository implements FlightRepositoryInterface
             
             $flight = $this->model->create($data);
 
+            if($flight->origin->iata_code == $flight->destination->iata_code) {
+                throw new Exception('Os aeroportos não podem estar situados na mesma cidade.');
+            }
+
             $seatsAvailable = 0;
 
             foreach($data['classes'] as $class) {
