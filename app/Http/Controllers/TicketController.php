@@ -74,4 +74,11 @@ class TicketController extends Controller
 
         return response()->json($vouchers);
     }
+
+    public function ticketsByCpf(string $cpf)
+    {
+        $tickets = $this->ticketRepository->ticketsByCpf($cpf);
+
+        return response()->json($tickets);
+    }
 }

@@ -117,4 +117,9 @@ class TicketRepository implements TicketRepositoryInterface
             'passenger_cpf' => $ticket->passenger_cpf
         ];
     }
+
+    public function ticketsByCpf(string $cpf)
+    {
+        return $this->model->where('buyer_cpf', '=', $cpf)->get();
+    }
 }

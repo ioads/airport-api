@@ -24,4 +24,6 @@ interface TicketRepositoryInterface
     public function voucher(string $cpf, string $flightId);
 
     public function baggage(string $ticketCode);
+
+    public function ticketsByCpf(string $cpf);
 }

@@ -19,6 +19,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::resource('tickets', TicketController::class)->only('index', 'store', 'update', 'destroy');
     Route::get('flights/passengers/{flightId}', [FlightController::class, 'passengers']);
     Route::post('/tickets/buy', [TicketController::class, 'buy']);
+    Route::get('/tickets/buyer/{cpf}', [TicketController::class, 'ticketsByCpf']);
     Route::get('/tickets/voucher/{cpf}/{flightId}', [TicketController::class, 'voucher']);
     Route::get('/tickets/baggage/{ticketCode}', [TicketController::class, 'baggage']);
 });
