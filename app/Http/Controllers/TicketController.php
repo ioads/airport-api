@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\BuyTicketRequest;
 use App\Http\Requests\UpdateTicketRequest;
+use App\Models\Flight;
 use App\Models\Ticket;
 use App\Repositories\TicketRepositoryInterface;
 use Illuminate\Http\Request;
@@ -61,9 +62,9 @@ class TicketController extends Controller
         return $this->ticketRepository->buy($data);
     }
 
-    public function voucher(string $cpf, string $flightId)
+    public function voucher(string $cpf, Flight $flight)
     {
-        $vouchers = $this->ticketRepository->voucher($cpf, $flightId);
+        $vouchers = $this->ticketRepository->voucher($cpf, $flight);
 
         return response()->json($vouchers);
     }

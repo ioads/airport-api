@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\ClassFlight;
+use App\Models\Flight;
 use App\Models\Ticket;
 use Carbon\Carbon;
 use DateTime;
@@ -15,9 +16,9 @@ class TicketRepository implements TicketRepositoryInterface
     protected Ticket $model;
     protected ClassFlight $classFlight;
 
-    public function __construct(Ticket $flight, ClassFlight $classFlight)
+    public function __construct(Ticket $ticket, ClassFlight $classFlight)
     {
-        $this->model = $flight;
+        $this->model = $ticket;
         $this->classFlight = $classFlight;
     }
 
@@ -80,9 +81,16 @@ class TicketRepository implements TicketRepositoryInterface
         return $this->model->where('flight_id', '=', $data['flight_id'])->where('buyer_cpf', '=', $data['buyer_cpf'])->get();
     }
 
-    public function voucher(string $cpf, string $flightId)
+    public function voucher(string $cpf, Flight $flight)
     {
-        $tickets = $this->model->where('buyer_cpf', '=', $cpf)->where('flight_id', '=', $flightId)->get();
+        $now = Carbon::now('America/Sao_Paulo');
+        $hours = $now->diffInHours(Carbon::parse($flight->departure));
+
+        if($hours < 5) {
+            throw new Exception('Somente é permitido executar esta ação em até 5 horas antes do voo.');
+        }
+
+        $tickets = $this->model->where('buyer_cpf', '=', $cpf)->where('flight_id', '=', $flight->id)->get();
 
         $vouchers = [];
 
@@ -105,7 +113,12 @@ class TicketRepository implements TicketRepositoryInterface
     {
         $ticket = $this->model->where('code', '=', $ticketCode)->first();
 
-        // Validar se resta mais de 5 horas até a hora do voo
+        $now = Carbon::now('America/Sao_Paulo');
+        $hours = $now->diffInHours(Carbon::parse($ticket->departure));
+
+        if($hours < 5) {
+            throw new Exception('Somente é permitido executar esta ação em até 5 horas antes do voo.');
+        }
 
         if(!$ticket->check_baggage) {
             throw new Exception('Esta passagem não possui despacho de bagagem.');

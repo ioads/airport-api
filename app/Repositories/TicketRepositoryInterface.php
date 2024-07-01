@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Http\Requests\BuyTicketRequest;
+use App\Models\Flight;
 use App\Models\Ticket;
 
 interface TicketRepositoryInterface
@@ -21,7 +22,7 @@ interface TicketRepositoryInterface
 
     public function buy(BuyTicketRequest $request);
 
-    public function voucher(string $cpf, string $flightId);
+    public function voucher(string $cpf, Flight $flight);
 
     public function baggage(string $ticketCode);
 
