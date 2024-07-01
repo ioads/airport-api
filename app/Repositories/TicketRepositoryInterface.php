@@ -22,4 +22,6 @@ interface TicketRepositoryInterface
     public function buy(BuyTicketRequest $request);
 
     public function voucher(string $cpf, string $flightId);
+
+    public function baggage(string $ticketCode);
 }

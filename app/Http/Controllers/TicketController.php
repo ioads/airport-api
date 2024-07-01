@@ -67,4 +67,11 @@ class TicketController extends Controller
 
         return response()->json($vouchers);
     }
+
+    public function baggage(string $ticketCode)
+    {
+        $vouchers = $this->ticketRepository->baggage($ticketCode);
+
+        return response()->json($vouchers);
+    }
 }

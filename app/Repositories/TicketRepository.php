@@ -3,6 +3,10 @@
 namespace App\Repositories;
 
 use App\Models\Ticket;
+use Carbon\Carbon;
+use DateTime;
+use DateTimeZone;
+use Exception;
 use Illuminate\Database\Eloquent\Collection;
 
 class TicketRepository implements TicketRepositoryInterface
@@ -92,5 +96,25 @@ class TicketRepository implements TicketRepositoryInterface
         }
 
         return $vouchers;
+    }
+
+    public function baggage(string $ticketCode)
+    {
+        $ticket = $this->model->where('code', '=', $ticketCode)->first();
+
+        // Validar se resta mais de 5 horas até a hora do voo
+
+        if(!$ticket->check_baggage) {
+            throw new Exception('Esta passagem não possui despacho de bagagem.');
+        }
+        
+        $ticket->update(['baggage_number' => $ticket->code . $ticket->passenger_cpf]);
+
+        return [
+            'ticket_code' => $ticket->code,
+            'baggage_number' => $ticket->baggage_number,
+            'passenger_name' => $ticket->passenger_name,
+            'passenger_cpf' => $ticket->passenger_cpf
+        ];
     }
 }
