@@ -9,18 +9,16 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('/login', [AuthController::class, 'login']);
 
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:sanctum');
-
 Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::resource('airports', AirportController::class);
     Route::resource('flights', FlightController::class)->only('index', 'store', 'update', 'destroy');
-    Route::resource('tickets', TicketController::class)->only('index', 'store', 'update', 'destroy');
+    Route::resource('tickets', TicketController::class)->only('store', 'update', 'destroy');
     Route::get('flights/passengers/{flightId}', [FlightController::class, 'passengers']);
-    Route::post('/tickets/buy', [TicketController::class, 'buy']);
-    Route::get('/tickets/buyer/{cpf}', [TicketController::class, 'ticketsByCpf']);
-    Route::get('/tickets/voucher/{cpf}/{flightId}', [TicketController::class, 'voucher']);
-    Route::get('/tickets/baggage/{ticketCode}', [TicketController::class, 'baggage']);
     Route::post('tickets/cancel', [TicketController::class, 'cancel']);
 });
+
+Route::get('/tickets', [TicketController::class, 'index']);
+Route::post('/tickets/buy', [TicketController::class, 'buy']);
+Route::get('/tickets/buyer/{cpf}', [TicketController::class, 'ticketsByCpf']);
+Route::get('/tickets/voucher/{cpf}/{flightId}', [TicketController::class, 'voucher']);
+Route::get('/tickets/baggage/{ticketCode}', [TicketController::class, 'baggage']);
