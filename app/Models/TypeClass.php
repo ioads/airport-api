@@ -9,6 +9,8 @@ class TypeClass extends Model
 {
     use HasFactory;
 
+    protected $table = 'classes';
+
     protected $fillable = [
         'name'
     ];

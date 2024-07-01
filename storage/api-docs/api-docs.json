@@ -14,6 +14,24 @@
         "version": "1.0.0"
     },
     "paths": {
+        "/api/airports": {
+            "get": {
+                "tags": [
+                    "Airports"
+                ],
+                "summary": "Get list of airports",
+                "description": "Returns list of airports",
+                "operationId": "getAirportsList",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        },
         "/api/login": {
             "post": {
                 "tags": [
@@ -54,14 +72,32 @@
                 }
             }
         },
-        "/api/airports": {
+        "/api/cities": {
             "get": {
                 "tags": [
-                    "Airports"
+                    "Cities"
                 ],
-                "summary": "Get list of airports",
-                "description": "Returns list of airports",
-                "operationId": "getAirportsList",
+                "summary": "Get list of cities",
+                "description": "Returns list of cities",
+                "operationId": "getCitiesList",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        },
+        "/api/classes": {
+            "get": {
+                "tags": [
+                    "Classes"
+                ],
+                "summary": "Get list of classes",
+                "description": "Returns list of classes",
+                "operationId": "getClassesList",
                 "responses": {
                     "200": {
                         "description": "Successful operation"
