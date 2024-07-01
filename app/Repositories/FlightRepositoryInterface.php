@@ -17,4 +17,6 @@ interface FlightRepositoryInterface
     public function updateOrCreate(array $find, array $data);
 
     public function delete(Flight $flight);
+
+    public function passengers(string $flightId);
 }

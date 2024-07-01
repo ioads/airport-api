@@ -77,4 +77,9 @@ class FlightRepository implements FlightRepositoryInterface
     {
         return $flight->delete();
     }
+
+    public function passengers(string $flightId)
+    {
+        return $this->model->find($flightId)->tickets->whereNotNull('buyer_cpf');
+    }
 }

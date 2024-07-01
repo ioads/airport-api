@@ -59,4 +59,11 @@ class FlightController extends Controller
     {
         return $this->flightRepository->delete($flight);
     }
+
+    public function passengers(string $flightId)
+    {
+        $passengers = $this->flightRepository->passengers($flightId);
+
+        return response()->json($passengers);
+    }
 }
