@@ -14,6 +14,24 @@
         "version": "1.0.0"
     },
     "paths": {
+        "/api/airports": {
+            "get": {
+                "tags": [
+                    "Airports"
+                ],
+                "summary": "Get list of airports",
+                "description": "Returns list of airports",
+                "operationId": "getAirportsList",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        },
         "/api/flights": {
             "get": {
                 "tags": [
