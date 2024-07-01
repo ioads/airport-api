@@ -30,4 +30,4 @@ Será necessário realizar login e utilizar o token gerado para autenticação B
 
 O projeto também está rodando na seguinte URL
 
-``[Airport Api on Heroku](https://airport-api-40ce70907706.herokuapp.com/)``
+``https://airport-api-40ce70907706.herokuapp.com/``
