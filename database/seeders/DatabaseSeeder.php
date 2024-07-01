@@ -21,5 +21,16 @@ class DatabaseSeeder extends Seeder
             'email' => 'test@example.com',
             'password' => Hash::make('123456'),
         ]);
+
+
+        // Chama o seeder das classes
+        $this->call(ClassesTableSeeder::class);
+
+
+        // Chama o seeder das cidades
+        $this->call(CitiesTableSeeder::class);
+
+        // Chama o seeder dos aeroportos
+        $this->call(AirportsTableSeeder::class);
     }
 }
