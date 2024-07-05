@@ -67,7 +67,6 @@ class FlightRepository implements FlightRepositoryInterface
 
     public function update(Flight $flight, array $data)
     {
-        // $flight = $this->model->find($id);
         $flight->update($data);
         return $flight;
     }

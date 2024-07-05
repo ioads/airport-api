@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateTicketRequest;
 use App\Models\Flight;
 use App\Models\Ticket;
 use App\Repositories\TicketRepositoryInterface;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class TicketController extends Controller
@@ -40,6 +41,12 @@ class TicketController extends Controller
             $query->where('destination_iata', '=', $request->destination_iata);
         }
         if($request->departure) {
+            $date1 = Carbon::parse($request->departure);
+            $date2 = Carbon::now();
+
+            if($date1 < $date2)  {
+                return response()->json(['success' => false, 'message' => 'Não é permitido filtrar uma data anterior a data de hoje.']);
+            }
             $query->whereDate('departure', '=', $request->departure);
         }
         if($request->total_price) {

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreFlightRequest;
 use App\Http\Requests\UpdateFlightRequest;
+use App\Http\Resources\FlightResource;
 use App\Models\Flight;
 use App\Repositories\FlightRepositoryInterface;
 use Illuminate\Http\Request;
@@ -70,7 +71,7 @@ class FlightController extends Controller
         
         $flight = $this->flightRepository->create($data);
 
-        return response()->json($flight);
+        return new FlightResource($flight);
     }
 
     /**
@@ -100,7 +101,7 @@ class FlightController extends Controller
 
         $flight = $this->flightRepository->update($flight, $data);
 
-        return response()->json($flight);
+        return new FlightResource($flight);
     }
 
     /**
